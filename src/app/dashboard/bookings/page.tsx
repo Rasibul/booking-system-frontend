@@ -188,11 +188,6 @@ export default function BookingListPage() {
                                     <div className="font-medium">
                                       {booking.requestedBy}
                                     </div>
-                                    {/* <div className="text-sm text-gray-400">
-                                      {new Date(
-                                        booking.createdAt
-                                      ).toLocaleDateString()}
-                                    </div> */}
                                   </td>
                                   <td className="py-4 px-6">
                                     <div className="font-medium">
