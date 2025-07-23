@@ -2,22 +2,16 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Resource Booking System</h1>
-      <div className="flex gap-4">
-        <Link
-          href="/bookings"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          View Bookings
-        </Link>
-        <Link
-          href="/bookings/new"
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          New Booking
-        </Link>
-      </div>
+    <main className="min-h-screen bg-black flex flex-col justify-center items-center p-6">
+      <h1 className="text-4xl font-extrabold text-white mb-8 drop-shadow-lg">
+        Resource Booking System
+      </h1>
+      <Link
+        href="/dashboard/bookings"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-lg transition-colors duration-300"
+      >
+        View Dashboard
+      </Link>
     </main>
   );
 }
