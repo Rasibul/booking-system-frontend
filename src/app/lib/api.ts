@@ -1,4 +1,4 @@
-import { Booking } from "../../../public/types";
+import { Booking } from "../types";
 
 const API_BASE_URL = 'http://localhost:5000/api';
 

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Booking } from "../../../../public/types/index";
+import { Booking } from "../../types/index";
 import { getBookings } from "@/app/lib/api";
 import { FaTrash, FaFilter, FaCalendarAlt, FaBuilding } from "react-icons/fa";
 
