@@ -37,4 +37,4 @@ npm install
 npm run dev
 # Runs on http://localhost:3000 
 
-live link: 
+live link: https://booking-system-frontend-5hnpc59fw-b-ddgg.vercel.app 
