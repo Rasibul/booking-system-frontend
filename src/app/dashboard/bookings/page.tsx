@@ -34,7 +34,6 @@ export default function BookingListPage() {
   };
 
   const handleDelete = async (id: string) => {
-    // Create custom confirmation modal
     const confirmed = await new Promise<boolean>((resolve) => {
       const modal = document.createElement("div");
       modal.className =
