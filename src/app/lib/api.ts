@@ -1,6 +1,6 @@
 import { Booking } from "../types";
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://booking-backend-system.vercel.app/api';
 
 export async function getBookings(resource?: string, date?: string): Promise<{ success: boolean; message: string; data: Booking[] }> {
     const url = new URL(`${API_BASE_URL}/bookings`);

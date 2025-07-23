@@ -91,7 +91,7 @@ export default function BookingListPage() {
     if (confirmed) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/bookings/${id}`,
+          `https://booking-backend-system.vercel.app/api/bookings/${id}`,
           {
             method: "DELETE",
           }
