@@ -46,16 +46,6 @@ export default function BookingListPage() {
     }
   };
 
-  const formatDateTime = (dateString: string) => {
-    return new Date(dateString).toLocaleString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -102,7 +92,7 @@ export default function BookingListPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block mb-2 text-gray-300 flex items-center gap-2">
+                  <label className="block mb-2 text-gray-300 items-center gap-2">
                     <FaBuilding className="text-cyan-400" />
                     Filter by Resource
                   </label>
@@ -116,7 +106,7 @@ export default function BookingListPage() {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-gray-300 flex items-center gap-2">
+                  <label className="block mb-2 text-gray-300  items-center gap-2">
                     <FaCalendarAlt className="text-cyan-400" />
                     Filter by Date
                   </label>
