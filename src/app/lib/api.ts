@@ -1,12 +1,15 @@
+import { Booking } from "../../../public/types";
+
 const API_BASE_URL = 'http://localhost:5000/api';
 
-export async function getBookings(resource?: string, date?: string) {
+export async function getBookings(resource?: string, date?: string): Promise<{ success: boolean; message: string; data: Booking[] }> {
     const url = new URL(`${API_BASE_URL}/bookings`);
     if (resource) url.searchParams.append('resource', resource);
     if (date) url.searchParams.append('date', date);
 
     const response = await fetch(url.toString());
     if (!response.ok) throw new Error('Failed to fetch bookings');
+
     return response.json();
 }
 
