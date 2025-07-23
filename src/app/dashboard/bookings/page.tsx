@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Booking } from "../../types/index";
 import { getBookings } from "@/app/lib/api";
 import { FaTrash, FaFilter, FaCalendarAlt, FaBuilding } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function BookingListPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -33,15 +34,79 @@ export default function BookingListPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this booking?")) {
+    // Create custom confirmation modal
+    const confirmed = await new Promise<boolean>((resolve) => {
+      const modal = document.createElement("div");
+      modal.className =
+        "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+      modal.innerHTML = `
+      <div class="bg-gray-800 rounded-xl border border-gray-700 p-6 max-w-md w-full shadow-2xl">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-red-900/30 flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white">Delete Booking</h3>
+        </div>
+        <p class="text-gray-300 mb-6">Are you sure you want to delete this booking? This action cannot be undone.</p>
+        <div class="flex gap-3 justify-end">
+          <button id="cancel-btn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            Cancel
+          </button>
+          <button id="confirm-btn" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors">
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+
+      document.body.appendChild(modal);
+
+      const cancelBtn = modal.querySelector("#cancel-btn");
+      const confirmBtn = modal.querySelector("#confirm-btn");
+
+      const cleanup = () => {
+        document.body.removeChild(modal);
+      };
+
+      cancelBtn?.addEventListener("click", () => {
+        cleanup();
+        resolve(false);
+      });
+
+      confirmBtn?.addEventListener("click", () => {
+        cleanup();
+        resolve(true);
+      });
+
+      // Close on backdrop click
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          cleanup();
+          resolve(false);
+        }
+      });
+    });
+
+    if (confirmed) {
       try {
-        await fetch(`/api/bookings/${id}`, {
-          method: "DELETE",
-        });
-        fetchBookings();
+        const response = await fetch(
+          `http://localhost:5000/api/bookings/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (response.ok) {
+          toast.success("Booking deleted successfully!");
+          fetchBookings();
+        } else {
+          throw new Error("Failed to delete booking");
+        }
       } catch (error) {
         console.error("Error deleting booking:", error);
-        alert("Failed to delete booking");
+        toast.error("Failed to delete booking. Please try again.");
       }
     }
   };
